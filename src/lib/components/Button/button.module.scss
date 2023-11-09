@@ -1,0 +1,10 @@
+@use "../../assets/colors/index.module.scss" as colors;
+
+.button {
+  border-radius: 4px;
+
+  &.is-cool {
+    background-color: colors.$green20;
+    color: white;
+  }
+}

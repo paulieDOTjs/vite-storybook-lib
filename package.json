@@ -1,0 +1,73 @@
+{
+  "name": "vite-storybook-lib",
+  "type": "module",
+  "main": "./dist/vite-storybook-lib.cjs",
+  "module": "./dist/vite-storybook-lib.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/vite-storybook-lib.js",
+      "require": "./dist/vite-storybook-lib.cjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "dev": "concurrently \"yarn generate:watch\" \"vite\"",
+    "start": "concurrently \"yarn generate:watch\" \"storybook dev -p 3000 --no-open\"",
+    "build": "yarn build:lib && yarn build:storybook",
+    "build:lib": "tsc && vite build",
+    "build:storybook": "storybook build -o ./build",
+    "cleanup:css": "rimraf ./**/*.scss.d.ts",
+    "cleanup:build": "rimraf ./build && rimraf ./dist && rimraf analysis",
+    "generate": "typed-scss-modules \"src/**/*.module.scss\" -n none -e default",
+    "generate:watch": "typed-scss-modules \"src/**/*.module.scss\" -w -n none -e default -L error",
+    "pregenerate": "yarn cleanup:css",
+    "precleanup:css": "yarn install",
+    "precleanup:build": "yarn install",
+    "prestart": "yarn generate",
+    "predev": "yarn generate",
+    "pretest": "yarn install",
+    "prebuild": "yarn generate && yarn cleanup:build"
+  },
+  "dependencies": {
+    "classnames": "^2.3.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@storybook/addon-essentials": "^7.5.3",
+    "@storybook/addon-interactions": "^7.5.3",
+    "@storybook/addon-links": "^7.5.3",
+    "@storybook/blocks": "^7.5.3",
+    "@storybook/react": "^7.5.3",
+    "@storybook/react-vite": "^7.5.3",
+    "@storybook/testing-library": "^0.2.2",
+    "@types/lodash": "^4.14.200",
+    "@types/node": "^20.8.10",
+    "@types/react": "^18.2.15",
+    "@types/react-dom": "^18.2.7",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "@vitejs/plugin-react": "^4.0.3",
+    "concurrently": "^8.2.2",
+    "eslint": "^8.45.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.3",
+    "eslint-plugin-storybook": "^0.6.15",
+    "lodash": "^4.17.21",
+    "sass": "^1.69.5",
+    "storybook": "^7.5.3",
+    "typed-scss-modules": "^7.1.4",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.5",
+    "vite-plugin-dts": "^3.6.3",
+    "vite-plugin-lib-inject-css": "^1.3.0"
+  }
+}
